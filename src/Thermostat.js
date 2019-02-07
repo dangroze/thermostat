@@ -8,16 +8,14 @@ Thermostat.prototype = {
   currentTemperature: function() {
     return this._temperature;
   },
-  up: function() {
-    this._temperature += 1;
+  up: function(temp) {
+    this._temperature += temp;
   },
-  down: function() {
-    if (this.isMininumTemperature()) {
-      return;
-    };
-    this._temperature -= 1;
-  },
-  isMininumTemperature: function() {
-    return this._temperature === this.MIN_TEMPERATURE;
+  down: function(temp) {
+    if(this._temperature - temp < this.MIN_TEMPERATURE) {
+      this._temperature = this.MIN_TEMPERATURE;
+    } else {
+    this._temperature -= temp;
+    }
   }
-};
+}

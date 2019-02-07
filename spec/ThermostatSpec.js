@@ -9,17 +9,15 @@ describe('Thermostat', function(){
     expect(thermostat.currentTemperature()).toEqual(20);
   });
   it('increases temperature with up()', function(){
-    thermostat.up();
+    thermostat.up(1);
     expect(thermostat.currentTemperature()).toEqual(21);
   });
   it('decreases temp with down()', function() {
-    thermostat.down();
+    thermostat.down(1);
     expect(thermostat.currentTemperature()).toEqual(19);
   });
   it('minimum temp is 10', function(){
-    for (var i = 20; i > 10; i--) {
-      thermostat.down();
-    }
+      thermostat.down(12);
     expect(thermostat.currentTemperature()).toEqual(10);
   });
 });
