@@ -29,5 +29,17 @@ Thermostat.prototype = {
     } else {
       return 32;
     }
+  },
+  reset: function() {
+    this._temperature = 20;
+  },
+  energyUsage: function() {
+    if (this._temperature < 18) {
+      return 'low-usage';
+    } else if (this._temperature < 25) {
+      return 'medium-usage';
+    } else {
+      return 'high-usage';
+    }
   }
 }
