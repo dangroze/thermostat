@@ -20,14 +20,28 @@ describe('Thermostat', function(){
     thermostat.down(12);
     expect(thermostat.currentTemperature()).toEqual(10);
   });
+  it('has power saving mode on by default', function() {
+    expect(thermostat.isPowerSavingModeOn()).toBe(true);
+  });
+  it('can switch PSM off', function() {
+    thermostat.switchPowerSavingModeOff();
+    expect(thermostat.isPowerSavingModeOn()).toBe(false);
+  });
+  it('can switch PSM on', function() {
+    thermostat.switchPowerSavingModeOff();
+    expect(thermostat.isPowerSavingModeOn()).toBe(false);
+    thermostat.switchPowerSavingModeOn();
+    expect(thermostat.isPowerSavingModeOn()).toBe(true);
+  });
   it('maximum temp is 25 when power saver mode = on', function(){
-    thermostat._powerSavingOn = true;
+    thermostat.switchPowerSavingModeOn();
     thermostat.up(10);
     expect(thermostat.currentTemperature()).toEqual(25);
   });
   it('cannot set temp above 32 when power saver mode off', function(){
-    thermostat._powerSavingOn = false;
+    thermostat.switchPowerSavingModeOff();
     thermostat.up(10);
+    console.log(thermostat.currentTemperature());
     expect(thermostat.currentTemperature()).toEqual(30);
     thermostat.up(5);
     expect(thermostat.currentTemperature()).toEqual(32);

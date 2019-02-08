@@ -41,5 +41,14 @@ Thermostat.prototype = {
     } else {
       return 'high-usage';
     }
+  },
+  isPowerSavingModeOn: function() {
+    return this._powerSavingOn === true;
+  },
+  switchPowerSavingModeOff: function() {
+    this._powerSavingOn = false;
+  },
+  switchPowerSavingModeOn: function() {
+    this._powerSavingOn = true;
   }
 }
