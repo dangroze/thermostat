@@ -25,4 +25,11 @@ describe('Thermostat', function(){
     thermostat.up(10);
     expect(thermostat.currentTemperature()).toEqual(25);
   });
+  it('cannot set temp above 32 when power saver mode off', function(){
+    thermostat._powerSavingOn = false;
+    thermostat.up(10);
+    expect(thermostat.currentTemperature()).toEqual(30);
+    thermostat.up(5);
+    expect(thermostat.currentTemperature()).toEqual(32);
+  });
 });
