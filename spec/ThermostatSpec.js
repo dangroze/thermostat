@@ -37,4 +37,12 @@ describe('Thermostat', function(){
     thermostat.reset();
     expect(thermostat.currentTemperature()).toEqual(20);
   });
+  it('can display the energy usage level', function(){
+    thermostat.down(5);
+    expect(thermostat.energyUsage()).toEqual('low-usage');
+    thermostat.up(5);
+    expect(thermostat.energyUsage()).toEqual('medium-usage');
+    thermostat.up(5);
+    expect(thermostat.energyUsage()).toEqual('high-usage');
+  });
 });
