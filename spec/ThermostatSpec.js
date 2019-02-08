@@ -17,7 +17,12 @@ describe('Thermostat', function(){
     expect(thermostat.currentTemperature()).toEqual(19);
   });
   it('minimum temp is 10', function(){
-      thermostat.down(12);
+    thermostat.down(12);
     expect(thermostat.currentTemperature()).toEqual(10);
+  });
+  it('maximum temp is 25 when power saver mode = on', function(){
+    thermostat._powerSavingOn = true;
+    thermostat.up(10);
+    expect(thermostat.currentTemperature()).toEqual(25);
   });
 });
