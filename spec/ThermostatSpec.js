@@ -32,4 +32,9 @@ describe('Thermostat', function(){
     thermostat.up(5);
     expect(thermostat.currentTemperature()).toEqual(32);
   });
+  it('can reset temp to 20', function(){
+    thermostat.up(10);
+    thermostat.reset();
+    expect(thermostat.currentTemperature()).toEqual(20);
+  });
 });
