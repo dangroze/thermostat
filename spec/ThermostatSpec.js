@@ -9,15 +9,17 @@ describe('Thermostat', function(){
     expect(thermostat.currentTemperature()).toEqual(20);
   });
   it('increases temperature with up()', function(){
-    thermostat.up(1);
+    thermostat.up();
     expect(thermostat.currentTemperature()).toEqual(21);
   });
   it('decreases temp with down()', function() {
-    thermostat.down(1);
+    thermostat.down();
     expect(thermostat.currentTemperature()).toEqual(19);
   });
   it('minimum temp is 10', function(){
-    thermostat.down(12);
+    for(var i = 0; i < 15; i++){
+      thermostat.down();
+    }
     expect(thermostat.currentTemperature()).toEqual(10);
   });
   it('has power saving mode on by default', function() {
@@ -34,29 +36,38 @@ describe('Thermostat', function(){
     expect(thermostat.isPowerSavingModeOn()).toBe(true);
   });
   it('maximum temp is 25 when power saver mode = on', function(){
-    thermostat.switchPowerSavingModeOn();
-    thermostat.up(10);
+    for(var i = 0; i < 10; i++) {
+      thermostat.up();
+    }
     expect(thermostat.currentTemperature()).toEqual(25);
   });
   it('cannot set temp above 32 when power saver mode off', function(){
     thermostat.switchPowerSavingModeOff();
-    thermostat.up(10);
-    console.log(thermostat.currentTemperature());
-    expect(thermostat.currentTemperature()).toEqual(30);
-    thermostat.up(5);
+    for(var i = 0; i < 15; i++) {
+      thermostat.up();
+    }
     expect(thermostat.currentTemperature()).toEqual(32);
   });
   it('can reset temp to 20', function(){
-    thermostat.up(10);
+    thermostat.up();
     thermostat.reset();
     expect(thermostat.currentTemperature()).toEqual(20);
   });
-  it('can display the energy usage level', function(){
-    thermostat.down(5);
-    expect(thermostat.energyUsage()).toEqual('low-usage');
-    thermostat.up(5);
-    expect(thermostat.energyUsage()).toEqual('medium-usage');
-    thermostat.up(5);
-    expect(thermostat.energyUsage()).toEqual('high-usage');
-  });
+  describe('Energy usage levels', function () {
+    it('Shows low usage when temp < 18', function () {
+      for(var i = 0; i < 3; i++) {
+        thermostat.down();
+      }
+        expect(thermostat.energyUsage()).toEqual('low-usage');
+    })
+    it('Shows medium usage when temp is between 18-25', function () {
+      expect(thermostat.energyUsage()).toEqual('medium-usage')
+    })
+    it('Shows high usage when temp is > 25', function () {
+      for(var i = 0; i < 10; i++) {
+        thermostat.up();
+      }
+      expect(thermostat.energyUsage()).toEqual('high-usage');
+    })
+  })
 });
