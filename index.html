@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://bootswatch.com/4/spacelab/bootstrap.min.css">
+  <link rel="stylesheet" type=text/css href="src/style.css">
   <title>Thermostat</title>
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -11,31 +12,38 @@
   $(document).ready(function() {
     var thermostat = new Thermostat();
 
+    $.get('http://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=a3d9eb01d4de82b9b8d0849ef604dbed&units=metric', function(data) {
+      var forecast = data.main.temp;
+      var degrees = 'º';
+      $('#outside').text(Math.ceil(forecast) + degrees);
+    });
+
     $('#usage').click(function(){
       if (thermostat.energyUsage() == 'medium-usage' ) {
-        $('#color').attr('class', 'card text-white bg-secondary mb-3');
+        $('#color').attr('class', 'card text-white bg-dark mb-6');
       } else if (thermostat.energyUsage() == 'low-usage' ) {
-        $('#color').attr('class', 'card text-white bg-success mb-3');
+        $('#color').attr('class', 'card text-white bg-success mb-6');
       } else if (thermostat.energyUsage() == 'high-usage' ) {
-        $('#color').attr('class', 'card text-white bg-danger mb-3');
+        $('#color').attr('class', 'card text-white bg-danger mb-6');
       };
     });
 
 
-    $('#temperature').text(thermostat.currentTemperature());
+    var degrees = 'º';
+    $('#temperature').text(thermostat.currentTemperature() + degrees);
     $('#plus').click(function(){
       thermostat.up();
-      $('#temperature').text(thermostat.currentTemperature());
+      $('#temperature').text(thermostat.currentTemperature() + degrees);
     });
     $('#minus').click(function(){
       thermostat.down();
-      $('#temperature').text(thermostat.currentTemperature());
+      $('#temperature').text(thermostat.currentTemperature() + degrees);
     });
     
     $('#clear').click(function(){
       thermostat.reset();
       $('#temperature').text(thermostat.currentTemperature());
-      $('#color').attr('class', 'card text-white bg-info mb-3');
+      $('#color').attr('class', 'card text-white bg-info mb-6');
     });
 
     var clicks = 0;
@@ -46,8 +54,7 @@
         console.log(clicks);
       } else {
         thermostat.DEFAULT_TEMPERATURE = 25;
-        $('#temperature').text(thermostat.currentTemperature());
-        thermostat.switchPowerSavingModeOn();
+        $('#temperature').text(thermostat.currentTemperature() + degrees);        thermostat.switchPowerSavingModeOn();
         clicks += 1;
         console.log(clicks);
       };
@@ -63,17 +70,32 @@
         <button id="clear" type="button" class="btn btn-outline-danger" style="margin: 3px;">Reset</button>
         <button id="usage" type="button" class="btn btn-primary">Usage</button>
         <button id="minus" type="button" class="btn btn-primary">-</button>
-        <div class="card" style="max-width: 14rem; height: 8rem;">
-          <div id="color" style="margin: 1px; padding: 10px" class="card text-white bg-info mb-3" style="max-width: 20rem;">
-            <div class="card-body">
-              <h4 id="temperature" style="font-size: 45px;" class="card-title"></h4>
-            </div>
-          </div>
-        </div>
         <div class="custom-control custom-switch" style="margin: 3px;">
           <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
           <label class="custom-control-label" for="customSwitch1">PowerSaver mode</label>
         </div>
+        <div class="flip3D">
+          <div class="front">
+            <div class="card" style="max-width: 14rem; height: 10rem;">
+              <div id="color" class="card text-white bg-info mb-6" style="max-width: 20rem;">
+                <div class="card-header">Temperature</div>
+                <div class="card-body">
+                 <h4 id="temperature" style="font-size: 50px;" class="card-title"></h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="back">
+            <div class="card" style="max-width: 14rem; height: 10rem;">
+              <div class="card text-white bg-primary mb-6" style="max-width: 20rem;">
+                <div class="card-header">London</div>
+                  <div class="card-body">
+                    <h4 id="outside" style="font-size: 50px; class="card-title">Primary card title</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
       </div>
     </div>
     <script type="text/javascript" src="./src/Thermostat.js"></script>
