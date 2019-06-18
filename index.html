@@ -19,6 +19,20 @@
       thermostat.down();
       $('#temperature').text(thermostat.currentTemperature());
     });
+    var clicks = 0;
+    $('#customSwitch1').click(function(){
+      if (clicks % 2 == 0) {
+        thermostat.switchPowerSavingModeOff();
+        clicks += 1;
+        console.log(clicks);
+      } else {
+        thermostat.def_temp = 20;
+        $('#temperature').text(thermostat.currentTemperature());
+        thermostat.switchPowerSavingModeOn();
+        clicks += 1;
+        console.log(clicks);
+      };
+    });
   });
   </script>
 </head>
@@ -37,7 +51,7 @@
           </div>
         </div>
         <div class="custom-control custom-switch" style="margin: 3px;">
-          <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="">
+          <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
           <label class="custom-control-label" for="customSwitch1">PowerSaver mode</label>
         </div>
 
