@@ -19,6 +19,12 @@
       thermostat.down();
       $('#temperature').text(thermostat.currentTemperature());
     });
+    
+    $('#clear').click(function(){
+      thermostat.reset();
+      $('#temperature').text(thermostat.currentTemperature());
+    });
+
     var clicks = 0;
     $('#customSwitch1').click(function(){
       if (clicks % 2 == 0) {
@@ -26,7 +32,7 @@
         clicks += 1;
         console.log(clicks);
       } else {
-        thermostat.def_temp = 20;
+        thermostat.DEFAULT_TEMPERATURE = 25;
         $('#temperature').text(thermostat.currentTemperature());
         thermostat.switchPowerSavingModeOn();
         clicks += 1;
@@ -41,7 +47,7 @@
       <div class="col-md-4 mx-auto">
         <h2 style="color: black; padding: 1px;"><b>THERMOSTAT</b></h2>
         <button id="plus" type="button" class="btn btn-primary">+</button>
-        <button type="button" class="btn btn-outline-danger" style="margin: 3px;">Reset</button>
+        <button id="clear" type="button" class="btn btn-outline-danger" style="margin: 3px;">Reset</button>
         <button type="button" class="btn btn-primary">Usage</button>
         <button id="minus" type="button" class="btn btn-primary">-</button>
         <div class="card" style="max-width: 14rem; height: 10rem;">
