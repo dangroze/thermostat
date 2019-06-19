@@ -1,4 +1,15 @@
-So let's start with the customer's requirements:
+# Thermostat
+-------------
+
+Technologies used:
+
+* JavaScript with Jasmine(for TDD),
+* JQuery,
+* Bootstrap's Bootswatch,
+* CSS for custom animations,
+* 3rd party API for weather updates
+
+Customer's requirements:
 
 1. Thermostat starts at 20 degrees
 2. You can increase the temp with an up function
@@ -10,3 +21,11 @@ So let's start with the customer's requirements:
 8. You can reset the temperature to 20 with a reset function
 9. You can ask about the thermostat's current energy usage: < 18 is low-usage, < 25 is medium-usage, anything else is high-usage.
 (In the challenges where we add an interface, low-usage will be indicated with green, medium-usage indicated with black, high-usage indicated with red.)
+
+
+** How to run tests:
+
+```
+1. Clone this repository: git clone https://github.com/dangroze/thermostat.git
+2. Open index.html in browser
+```
